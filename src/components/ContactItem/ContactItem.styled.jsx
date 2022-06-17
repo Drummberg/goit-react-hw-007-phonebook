@@ -38,5 +38,11 @@ export const Link = styled.a`
   &:hover{
     background-color: white;
     font-weight: 700;
+    transform: scale(1.03);
+    
   } 
+`;
+export const Img = styled.img`
+  padding-right: 5px;
+  height: auto;
 `;
