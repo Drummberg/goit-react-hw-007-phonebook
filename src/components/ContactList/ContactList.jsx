@@ -1,32 +1,33 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { remove, getContacts, getFilter } from '../../Redux/contactsSlice';
+import { useSelector } from 'react-redux';
+import { useGetContactsQuery} from '../../../src/Redux/contactsApi';
+import { getFilter } from 'Redux/contactsSlice';
 import { ContactItem } from '../ContactItem/ContactItem';
 import { ListUl } from './ContactList.styled';
 
 export default function ContactList () {
-  const contacts = useSelector(getContacts);
+  const { data: contacts, isSuccess } = useGetContactsQuery();
+  
   const filterContacts = useSelector(getFilter);
-  const dispatch = useDispatch();
-
-
-  const onDeleteContact = contactId => {
-    dispatch(remove(contactId));
+  
+  if (!isSuccess) {
+    return;
   }
 
-    const setContacts = contacts.filter(contact => contact.name.toLowerCase().includes(filterContacts.toLocaleLowerCase())
+  
+
+  const getContacts = contacts.filter(contact => contact.name.toLowerCase().includes(filterContacts.toLocaleLowerCase())
     );
   
   return (
     <ListUl>
-      {setContacts.map(({ id, name, number }) => (
+      {getContacts.map(({ id, name, phone }) => (
         <ContactItem
           key={id}
           id={id}
           name={name}
-          number={number}
-          onClick={onDeleteContact}
-        />
+          number={phone}
+           />
       ))}
     </ListUl>
   );

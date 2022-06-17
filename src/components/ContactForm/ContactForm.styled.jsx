@@ -44,5 +44,6 @@ export const Button = styled.button`
     border-radius: 5px;
     color: white;
     font-weight: 700;
+    background-color: blue;
   }
 `;
