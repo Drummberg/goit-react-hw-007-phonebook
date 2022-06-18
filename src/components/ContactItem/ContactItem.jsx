@@ -4,7 +4,7 @@ import {useDeleteContactsMutation } from '../../Redux/contactsApi';
 import { ItemLi, Button, Link, Img } from './ContactItem.styled';
 
 export const ContactItem = ({ id, name, number, avatar}) => {
-  const [deleteContact] = useDeleteContactsMutation();
+  const [deleteContact, {isLoading}] = useDeleteContactsMutation();
 
   console.log(avatar);
   const onDeleteContact = id => {
@@ -16,7 +16,11 @@ export const ContactItem = ({ id, name, number, avatar}) => {
         <Img src={avatar} alt="avatar" width={35}></Img>
         {name}: {number}
       </Link>
-      <Button type="button" onClick={() => onDeleteContact(id)}>
+      <Button
+        type="button"
+        onClick={() => onDeleteContact(id)}
+        disabled={isLoading}     
+      >
         Delete
       </Button>
     </ItemLi>
